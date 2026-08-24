@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mining Policy Proposals: Industry Survey</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    background: #f5f4f0;
+    min-height: 100vh;
+    padding: 2rem 1rem 6rem;
+  }
+
+  .page-wrap { max-width: 1080px; margin: 0 auto; }
+
+  .page-header { margin-bottom: 1.5rem; }
+
+  .page-header h1 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .page-header p {
+    font-size: 15px;
+    color: #555;
+    max-width: 720px;
+    line-height: 1.7;
+  }
+
+  .legend {
+    background: #fff;
+    border: 1px solid #e0deda;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 1.25rem;
+  }
+
+  .legend dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; }
+  .legend dt { font-size: 13px; font-weight: 600; color: #0F6E56; white-space: nowrap; }
+  .legend dd { font-size: 13px; color: #555; }
+
+  .legend .note {
+    font-size: 13px; color: #777; margin-top: 10px; line-height: 1.6;
+    border-top: 1px solid #ece9e3; padding-top: 10px;
+  }
+
+  @media (max-width: 600px) {
+    .legend dl { grid-template-columns: 1fr; gap: 0 0; }
+    .legend dd { margin-bottom: 8px; }
+  }
+
+  .respondent-row {
+    background: #fff;
+    border: 1px solid #e0deda;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 1.25rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto 1fr auto 1fr;
+    gap: 10px 14px;
+    align-items: center;
+  }
+
+  @media (max-width: 860px) {
+    .respondent-row { grid-template-columns: 1fr; }
+  }
+
+  .respondent-row label { font-size: 14px; color: #555; white-space: nowrap; }
+  .respondent-row label .req { color: #A32D2D; margin-left: 2px; }
+
+  .respondent-row input {
+    font-size: 14px;
+    padding: 8px 11px;
+    border-radius: 7px;
+    border: 1px solid #d0ceca;
+    background: #faf9f7;
+    color: #1a1a1a;
+    font-family: inherit;
+    width: 100%;
+  }
+
+  .respondent-row input:focus {
+    outline: 2px solid #1D9E75;
+    outline-offset: 1px;
+    background: #fff;
+  }
+
+  .qblock {
+    background: #fff;
+    border: 1px solid #e0deda;
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+    transition: border-color 0.15s;
+  }
+
+  .qblock:focus-within { border-color: #9FE1CB; }
+
+  .qlabel {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #1D9E75;
+    margin-bottom: 5px;
+  }
+
+  .qtext {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 14px;
+    line-height: 1.45;
+  }
+
+  /* Bucketed-item grid */
+  .grid-head {
+    display: grid;
+    grid-template-columns: 1fr repeat(3, 132px) 220px;
+    gap: 8px;
+    padding: 0 10px 8px;
+  }
+
+  .grid-head span {
+    font-size: 11px;
+    font-weight: 600;
+    color: #777;
+    text-align: center;
+    line-height: 1.25;
+  }
+
+  .grid-head span:first-child { text-align: left; }
+
+  .prow {
+    display: grid;
+    grid-template-columns: 1fr repeat(3, 132px) 220px;
+    gap: 8px;
+    align-items: center;
+    padding: 9px 10px;
+    border-radius: 7px;
+    border: 1px solid #e8e5e0;
+    background: #faf9f7;
+    margin-bottom: 5px;
+    transition: border-color 0.12s, background 0.12s;
+  }
+
+  .prow:hover { border-color: #bbb; }
+  .prow.answered { background: #fff; border-color: #cfe9df; }
+
+  .ptext { font-size: 13px; color: #222; line-height: 1.45; }
+  .pnum { color: #999; font-weight: 600; margin-right: 5px; }
+
+  .cellbox { display: flex; justify-content: center; align-items: center; }
+
+  .cellbox input[type=checkbox] {
+    width: 17px;
+    height: 17px;
+    accent-color: #1D9E75;
+    cursor: pointer;
+  }
+
+  .cellbox label { display: none; }
+
+  .pcomment {
+    width: 100%;
+    font-size: 12px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #d0ceca;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: inherit;
+  }
+
+  .pcomment:focus { outline: 2px solid #1D9E75; outline-offset: 1px; }
+
+  /* Open-ended item row (no buckets, just a prompt + free text) */
+  .orow {
+    border-radius: 7px;
+    border: 1px solid #cfe0f5;
+    background: #f3f8fd;
+    padding: 12px 14px;
+    margin-bottom: 5px;
+    transition: border-color 0.12s;
+  }
+  .orow:focus-within { border-color: #6fa8dc; }
+  .orow .otext {
+    font-size: 13px; font-weight: 600; color: #1a4a7a; line-height: 1.45; margin-bottom: 8px;
+  }
+  .orow .otext .pnum { color: #6a8fb8; }
+  .oanswer {
+    width: 100%;
+    font-size: 13px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #c3d7ee;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: inherit;
+    line-height: 1.55;
+    resize: vertical;
+    min-height: 60px;
+  }
+  .oanswer:focus { outline: 2px solid #6fa8dc; outline-offset: 1px; }
+
+  @media (max-width: 860px) {
+    .grid-head { display: none; }
+    .prow {
+      grid-template-columns: 1fr;
+      gap: 9px;
+      background: #fff;
+      padding: 12px;
+    }
+    .cellbox {
+      justify-content: flex-start;
+      gap: 9px;
+      padding: 6px 9px;
+      border: 1px solid #e8e5e0;
+      border-radius: 6px;
+    }
+    .cellbox label { display: inline; font-size: 13px; color: #222; cursor: pointer; }
+    .cellbox.on { background: #E1F5EE; border-color: #5DCAA5; }
+  }
+
+  .secq-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin: 16px 0 6px;
+  }
+
+  textarea.qta {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 12px;
+    border-radius: 7px;
+    border: 1px solid #d0ceca;
+    background: #faf9f7;
+    color: #1a1a1a;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+  }
+
+  textarea.qta:focus { outline: 2px solid #1D9E75; outline-offset: 1px; background: #fff; }
+
+  /* Sticky progress footer */
+  .footbar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    background: #fff;
+    border-top: 1px solid #e0deda;
+    padding: 10px 16px;
+    z-index: 20;
+  }
+
+  .footinner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .progress-wrap { flex: 1; min-width: 180px; }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+  }
+
+  .progress-track { height: 4px; background: #e5e2dc; border-radius: 99px; overflow: hidden; }
+  .progress-fill { height: 100%; background: #1D9E75; border-radius: 99px; transition: width 0.3s; width: 0%; }
+
+  button.btn-clear {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 7px;
+    border: 1px solid #d0ceca;
+    background: #fff;
+    color: #444;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.12s;
+  }
+
+  button.btn-clear:hover { background: #f0ede8; }
+
+  button.btn-submit {
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 7px;
+    border: 1.5px solid #1D9E75;
+    color: #fff;
+    background: #1D9E75;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.12s;
+  }
+
+  button.btn-submit:hover:not(:disabled) { background: #0F6E56; border-color: #0F6E56; }
+  button.btn-submit:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  .status { font-size: 13px; color: #888; }
+  .status.ok { color: #0F6E56; }
+  .status.err { color: #A32D2D; }
+
+  .success-banner {
+    display: none;
+    background: #E1F5EE;
+    border: 1px solid #5DCAA5;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 1.5rem;
+    font-size: 15px;
+    color: #085041;
+    line-height: 1.7;
+  }
+
+  .success-banner strong { display: block; font-size: 16px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <h1>Mining Policy Proposals: Industry Survey</h1>
+    <p>Thanks for taking the time to work through this. Below are a range of policy ideas spanning claims, permitting, Tribal consultation, environmental standards, reclamation, enforcement, and critical minerals. For most items, mark every category that applies. A handful of items are open-ended questions instead — those are shaded blue and just ask for your specific thinking rather than a position.</p>
+  </div>
+
+  <div class="legend">
+    <dl>
+      <dt>Non-starter</dt><dd>Not something your organization could support, including as part of a broader package.</dd>
+      <dt>Open to Negotiation</dt><dd>Something your organization could potentially support, contingent on implementation details and on the composition of the broader package it's part of.</dd>
+      <dt>Must Have</dt><dd>Something your organization would consider essential to a package it could support.</dd>
+    </dl>
+    <p class="note">Your individual responses are confidential. This survey is diagnostic, not positional — we're running a parallel version with the NGO partners we're working with (NRDC, LCV, The Wilderness Society, NPCA, Trout Unlimited, and BlueGreen Alliance) to see where there's real overlap between the two sides. Nothing here locks in a negotiating position for you or for industry. Comments are optional throughout, and your answers save automatically in this browser, so you can close the page and come back.</p>
+  </div>
+
+  <div class="respondent-row">
+    <label for="rname">Name<span class="req">*</span></label>
+    <input type="text" id="rname" placeholder="e.g. Jane Smith" required>
+    <label for="rorg">Organization<span class="req">*</span></label>
+    <input type="text" id="rorg" placeholder="e.g. Example Mining Co." required>
+    <label for="remail">Email</label>
+    <input type="email" id="remail" placeholder="optional">
+  </div>
+
+  <div id="sections"></div>
+
+  <div class="success-banner" id="success-banner">
+    <strong>Responses submitted — thank you.</strong>
+    Your responses have been recorded. Your answers stay on this page, so you can come back in this
+    same browser, change anything, and submit again. Resubmitting adds a new record rather than
+    erasing your earlier one.
+  </div>
+
+</div>
+
+<div class="footbar">
+  <div class="footinner">
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span id="progress-text">0 of 0 items answered</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <span class="status" id="status"></span>
+    <button class="btn-clear" id="btn-clear" type="button">Clear all</button>
+    <button class="btn-submit" id="btn-submit" type="button">Submit responses</button>
+  </div>
+</div>
+
+<script>
+const BACKEND = "https://script.google.com/macros/s/AKfycbxhHMuk3Tjt5994mVjQUO_ebiN9XvHJ1r6_BuTfccDu7wEuBbq-sNHbF2RixK5RcyKb/exec";
+
+const OPTIONS = ["Non-starter", "Open to Negotiation", "Must Have"];
+const SECTION_QUESTION = "Are there other policy proposals you\u2019d like to add, and in which bucket? Or any other thoughts?";
+const DRAFT_KEY = "mining_industry_survey_draft_v1";
+const RESPONDENT_KEY = "mining_industry_survey_respondent_v1";
+
+function respondentId() {
+  let id = null;
+  try { id = localStorage.getItem(RESPONDENT_KEY); } catch (e) { return ""; }
+  if (!id) {
+    id = "r-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
+    try { localStorage.setItem(RESPONDENT_KEY, id); } catch (e) {}
+  }
+  return id;
+}
+
+const SECTIONS = [
+  {
+    "title": "Access to Federal Lands and the Claim System",
+    "items": [
+      {
+        "type": "bucket",
+        "text": "Replace the open access system with a discretionary leasing / land use planning system.",
+        "n": 1
+      },
+      {
+        "type": "bucket",
+        "text": "Give land managers authority to deny mines whose impacts cannot be acceptably mitigated.",
+        "n": 2
+      },
+      {
+        "type": "bucket",
+        "text": "Require heightened review, or a concurrence role for the affected land management agency, for mines with reasonably foreseeable impacts on units of the National Park System, Wilderness, or Wild and Scenic Rivers.",
+        "n": 3
+      },
+      {
+        "type": "bucket",
+        "text": "Develop a mechanism to eliminate remaining claims in National Parks.",
+        "n": 4
+      },
+      {
+        "type": "bucket",
+        "text": "Permanently prohibit patenting of federal mining claims.",
+        "n": 5
+      }
+    ]
+  },
+  {
+    "title": "Scope of Rights Under a Mining Claim",
+    "items": [
+      {
+        "type": "bucket",
+        "text": "Enact a Rosemont fix that is similar but not identical to the current MRCA.",
+        "n": 6
+      },
+      {
+        "type": "bucket",
+        "text": "Require FLPMA special-use authorization for uses ancillary to mining.",
+        "n": 7
+      },
+      {
+        "type": "bucket",
+        "text": "Make mine waste and tailings non-locatable (i.e., no mining claims on waste and tailings at non-operating mines).",
+        "n": 8
+      },
+      {
+        "type": "bucket",
+        "text": "Clarify treatment of uncommon varieties of stone (tighten the requirements for making something saleable vs. locatable).",
+        "n": 9
+      }
+    ]
+  },
+  {
+    "title": "Permitting Process, Agency Roles, and Timelines",
+    "items": [
+      {
+        "type": "bucket",
+        "text": "Establish binding federal permitting schedules and require reporting when milestones are missed.",
+        "n": 10
+      },
+      {
+        "type": "bucket",
+        "text": "Designate a single lead agency with a joint schedule and a consolidated record of decision covering all federal authorizations for a project.",
+        "n": 11
+      },
+      {
+        "type": "open",
+        "text": "What specific suggestions would you make for how to expedite environmental reviews for critical mineral projects?",
+        "n": 12
+      },
+      {
+        "type": "bucket",
+        "text": "Establish expedited environmental-review procedures for projects that meet certain positive performance thresholds (such as meeting a certain IRMA level, or obtaining FPIC of affected Tribes).",
+        "n": 13
+      },
+      {
+        "type": "bucket",
+        "text": "Limit the circumstances in which agencies may reopen or rescind completed environmental reviews.",
+        "n": 14
+      }
+    ]
+  },
+  {
+    "title": "Notice-Level Operations and Exploration",
+    "items": [
+      {
+        "type": "bucket",
+        "text": "Require BLM notice-level regulations to match the provisions in the USFS proposed rule.",
+        "n": 15
+      },
+      {
+        "type": "bucket",
+        "text": "Allow USFS notice-level regulations to match BLM’s current requirements.",
+        "n": 16
+      },
+      {
+        "type": "bucket",
+        "text": "Require Tribal and public notification of all submitted notices, and allow for public comment.",
+        "n": 17
+      },
+      {
+        "type": "bucket",
+        "text": "Remove suction dredging from the definition of casual use.",
+        "n": 18
+      },
+      {
+        "type": "bucket",
+        "text": "Require mining exploration data to be submitted to government agencies (state or Federal).",
+        "n": 19
+      }
+    ]
+  },
+  {
+    "title": "Early Engagement and Public Participation",
+    "items": [
+      {
+        "type": "bucket",
+        "text": "Require preapplication meetings between applicants and federal agencies, states, and Tribes.",
+        "n": 20
+      },
+      {
+        "type": "bucket",
+        "text": "Begin agency engagement with public prior to finalization of mine plan.",
+        "n": 21
+      },
+      {
+        "type": "bucket",
+        "text": "Incentivize or require social impact and community benefit planning documents.",
+        "n": 22
+      },
+      {
+        "type": "open",
+        "text": "What specific policies could help incentivize development of more extensive social impact or community benefit documents?",
+        "n": 23
+      },
+      {
+        "type": "bucket",
+        "text": "Require public engagement/notification before a project is added to the FAST-41 dashboard.",
+        "n": 24
+      }
+    ]
+  },
+  {
+    "title": "Tribal Consultation and Participation",
+    "items": [
+      {
+        "type": "bucket",
+        "text": "Specific enumerated Tribal consultation requirements.",
+        "n": 25
+      },
+      {
+        "type": "bucket",
+        "text": "Require FPIC from all Tribes with resources impacted by a potential mining project.",
+        "n": 26
+      },
+      {
+        "type": "bucket",
+        "text": "Incorporate Indigenous Knowledge into mine permitting.",
+        "n": 27
+      },
+      {
+        "type": "bucket",
+        "text": "Federal funding to Tribes to cover consultation costs, technical assistance, independent environmental monitoring, or other activities.",
+        "n": 28
+      },
+      {
+        "type": "bucket",
+        "text": "Require industry to fund Tribal consultation costs, technical assistance, independent environmental monitoring, or other activities.",
+        "n": 29
+      },
+      {
+        "type": "bucket",
+        "text": "Increase funding for State and Tribal Historic Preservation Offices (potentially from royalties or claim maintenance fees).",
+        "n": 30
+      },
+      {
+        "type": "bucket",
+        "text": "Establish federal program(s) to help finance Tribal equity stakes in mining projects.",
+        "n": 31
+      }
+    ]
+  },
+  {
+    "title": "Environmental Standards and Mine Operations",
+    "items": [
+      {
+        "type": "bucket",
+        "text": "Include “avoiding substantial irreparable harm” in the definition of unnecessary or undue degradation.",
+        "n": 32
+      },
+      {
+        "type": "bucket",
+        "text": "Expand performance standards in BLM regulations, such as adding specifics for surface water and groundwater.",
+        "n": 33
+      },
+      {
+        "type": "bucket",
+        "text": "Prohibit approval of mines expected to require perpetual water treatment.",
+        "n": 34
+      },
+      {
+        "type": "bucket",
+        "text": "Require mining operations to protect federal water rights from substantial adverse impacts.",
+        "n": 35
+      },
+      {
+        "type": "bucket",
+        "text": "Require compliance with the Global Industry Standard on Tailings Management.",
+        "n": 36
+      },
+      {
+        "type": "bucket",
+        "text": "Require independent third-party technical review of water quality predictions and tailings facility designs.",
+        "n": 37
+      },
+      {
+        "type": "bucket",
+        "text": "Require a climate change adaptation plan in plans of operation.",
+        "n": 38
+      },
+      {
+        "type": "bucket",
+        "text": "Establish a mitigation credit trading bank for biodiversity (and/or other) impacts.",
+        "n": 39
+      }
+    ]
+  },
+  {
+    "title": "Reclamation, Closure, and Legacy Sites",
+    "items": [
+      {
+        "type": "bucket",
+        "text": "Tighten requirements for financial assurance (such as reviewing existing reclamation cost models or removing insurance and self-bonding as options).",
+        "n": 40
+      },
+      {
+        "type": "bucket",
+        "text": "Require a funded long-term post-closure trust for sites needing extended monitoring, treatment, or maintenance, separate from the reclamation bond.",
+        "n": 41
+      },
+      {
+        "type": "bucket",
+        "text": "Make Good Samaritan a permanent program.",
+        "n": 42
+      },
+      {
+        "type": "bucket",
+        "text": "Allow Good Samaritan cleanup projects to generate Clean Water Act compliance credits.",
+        "n": 43
+      },
+      {
+        "type": "bucket",
+        "text": "Provide subsidies for reprocessing mine waste and tailings (tax credits, offtake agreements, etc.).",
+        "n": 44
+      },
+      {
+        "type": "open",
+        "text": "What specific subsidies (for example, tax credits, offtake agreements, or other mechanisms) would be most effective for encouraging reprocessing of mine waste and tailings?",
+        "n": 45
+      }
+    ]
+  },
+  {
+    "title": "Enforcement, Compliance, and Judicial Review",
+    "items": [
+      {
+        "type": "bucket",
+        "text": "Establish federal civil and administrative penalty authority for mining violations.",
+        "n": 46
+      },
+      {
+        "type": "bucket",
+        "text": "Authority to debar operators based on poor past performance.",
+        "n": 47
+      },
+      {
+        "type": "bucket",
+        "text": "Make company compliance records public.",
+        "n": 48
+      },
+      {
+        "type": "bucket",
+        "text": "Authorize citizen suits to enforce federal surface management performance standards.",
+        "n": 49
+      },
+      {
+        "type": "open",
+        "text": "What specific changes would you suggest to reform judicial review of mining project approvals?",
+        "n": 50
+      }
+    ]
+  },
+  {
+    "title": "Fiscal Terms and Revenue",
+    "items": [
+      {
+        "type": "bucket",
+        "text": "Establish a royalty on hardrock mining from public lands.",
+        "n": 51
+      },
+      {
+        "type": "bucket",
+        "text": "Apply any new royalty to production from existing claims.",
+        "n": 52
+      },
+      {
+        "type": "bucket",
+        "text": "Provide credits against royalties for positive voluntary actions.",
+        "n": 53
+      },
+      {
+        "type": "bucket",
+        "text": "Create a reclamation fee based on amount of displaced material.",
+        "n": 54
+      },
+      {
+        "type": "bucket",
+        "text": "Escalate claim maintenance fees with claim age, or create another method for encouraging diligent development of claims.",
+        "n": 55
+      },
+      {
+        "type": "bucket",
+        "text": "Reform or eliminate the small miner waiver program.",
+        "n": 56
+      },
+      {
+        "type": "bucket",
+        "text": "Use excess claim maintenance fees (those above what’s needed for BLM’s Mining Law Administration program) for other purposes (AML cleanup, state/county/Tribal impact payments, etc.).",
+        "n": 57
+      },
+      {
+        "type": "open",
+        "text": "Beyond Abandoned Mine Land (AML) cleanup, what other uses would you suggest for additional revenue generated by the federal hardrock mining program (for example, royalties or fees)?",
+        "n": 58
+      }
+    ]
+  },
+  {
+    "title": "Critical Minerals Supply Chain and Federal Support",
+    "items": [
+      {
+        "type": "bucket",
+        "text": "Authorize industrial policy incentives for critical mineral mining or processing (i.e., some combination of stockpiling, price floors, offtake agreements, subsidized loans, equity stakes, or other tools), subject to guardrails.",
+        "n": 59
+      },
+      {
+        "type": "open",
+        "text": "Which industrial policy tools are the most useful?",
+        "n": 60
+      },
+      {
+        "type": "bucket",
+        "text": "Improve tax treatment for critical mineral related activities (exploration, mining, processing). Please include any specific ideas in the comment box.",
+        "n": 61
+      },
+      {
+        "type": "open",
+        "text": "What incentives for critical mineral exploration would be useful?",
+        "n": 62
+      },
+      {
+        "type": "bucket",
+        "text": "Require sampling of byproduct critical-mineral potential at active metal mines.",
+        "n": 63
+      },
+      {
+        "type": "bucket",
+        "text": "Condition federal financing, offtake, or procurement on meeting certain standards, such as third-party responsible sourcing certification, project labor agreements, or others.",
+        "n": 64
+      },
+      {
+        "type": "bucket",
+        "text": "Fund mining school research and mining workforce development.",
+        "n": 65
+      },
+      {
+        "type": "bucket",
+        "text": "Permanently authorize MSP/FORGE (that is, the Mineral Security Project from the Biden Administration, which is being rebranded as FORGE under this administration).",
+        "n": 66
+      }
+    ]
+  }
+];
+
+const BUCKET_TOTAL = SECTIONS.reduce((a, s) => a + s.items.filter((it) => it.type === 'bucket').length, 0);
+const OPEN_TOTAL = SECTIONS.reduce((a, s) => a + s.items.filter((it) => it.type === 'open').length, 0);
+const TOTAL = BUCKET_TOTAL + OPEN_TOTAL;
+
+function esc(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function build() {
+  let html = "";
+  SECTIONS.forEach(function (sec, si) {
+    html += '<div class="qblock">';
+    html += '<div class="qlabel">Section ' + (si + 1) + ' of ' + SECTIONS.length + '</div>';
+    html += '<div class="qtext">' + esc(sec.title) + '</div>';
+
+    const hasBucketItems = sec.items.some(function (it) { return it.type === 'bucket'; });
+    if (hasBucketItems) {
+      html += '<div class="grid-head"><span>Proposal</span>';
+      OPTIONS.forEach(function (o) { html += '<span>' + esc(o) + '</span>'; });
+      html += '<span>Comments</span></div>';
+    }
+
+    sec.items.forEach(function (it) {
+      if (it.type === 'open') {
+        html += '<div class="orow" id="row-' + it.n + '">'
+              + '<div class="otext"><span class="pnum">' + it.n + '.</span>' + esc(it.text) + '</div>'
+              + '<textarea class="oanswer" data-open="' + it.n + '" rows="2" placeholder="Your response"></textarea>'
+              + '</div>';
+        return;
+      }
+      html += '<div class="prow" id="row-' + it.n + '">';
+      html += '<div class="ptext"><span class="pnum">' + it.n + '.</span>' + esc(it.text) + '</div>';
+      OPTIONS.forEach(function (o, oi) {
+        const id = "c-" + it.n + "-" + oi;
+        html += '<div class="cellbox">'
+              + '<input type="checkbox" id="' + id + '" data-item="' + it.n + '" value="' + esc(o) + '">'
+              + '<label for="' + id + '">' + esc(o) + '</label></div>';
+      });
+      html += '<div><input type="text" class="pcomment" data-comment="' + it.n + '" placeholder="Optional"></div>';
+      html += '</div>';
+    });
+
+    html += '<div class="secq-label">' + esc(SECTION_QUESTION) + '</div>';
+    html += '<textarea class="qta" data-section="' + esc(sec.title) + '"></textarea>';
+    html += '</div>';
+  });
+
+  document.getElementById("sections").innerHTML = html;
+}
+
+function collect() {
+  const answers = {}, comments = {}, openAnswers = {}, sectionComments = {};
+
+  document.querySelectorAll("input[type=checkbox][data-item]").forEach(function (cb) {
+    if (cb.checked) {
+      const k = cb.getAttribute("data-item");
+      (answers[k] = answers[k] || []).push(cb.value);
+    }
+  });
+  document.querySelectorAll("input[data-comment]").forEach(function (i) {
+    const v = i.value.trim();
+    if (v) comments[i.getAttribute("data-comment")] = v;
+  });
+  document.querySelectorAll("textarea[data-open]").forEach(function (t) {
+    const v = t.value.trim();
+    if (v) openAnswers[t.getAttribute("data-open")] = v;
+  });
+  document.querySelectorAll("textarea[data-section]").forEach(function (t) {
+    const v = t.value.trim();
+    if (v) sectionComments[t.getAttribute("data-section")] = v;
+  });
+
+  return {
+    respondentId: respondentId(),
+    respondent: document.getElementById("rname").value.trim(),
+    organization: document.getElementById("rorg").value.trim(),
+    email: document.getElementById("remail").value.trim(),
+    answers: answers,
+    comments: comments,
+    openAnswers: openAnswers,
+    sectionComments: sectionComments
+  };
+}
+
+function refresh() {
+  const d = collect();
+  const bucketDone = Object.keys(d.answers).length;
+  const openDone = Object.keys(d.openAnswers).length;
+  const done = bucketDone + openDone;
+  const pct = Math.round((done / TOTAL) * 100);
+  document.getElementById("progress-text").textContent = done + " of " + TOTAL + " items answered";
+  document.getElementById("progress-pct").textContent = pct + "%";
+  document.getElementById("progress-fill").style.width = pct + "%";
+
+  SECTIONS.forEach(function (sec) {
+    sec.items.forEach(function (it) {
+      const row = document.getElementById("row-" + it.n);
+      if (!row) return;
+      if (it.type === 'bucket') {
+        row.classList.toggle("answered", !!d.answers[String(it.n)]);
+      } else {
+        row.classList.toggle("answered", !!d.openAnswers[String(it.n)]);
+      }
+    });
+  });
+
+  document.querySelectorAll(".cellbox").forEach(function (c) {
+    const cb = c.querySelector("input");
+    if (cb) c.classList.toggle("on", cb.checked);
+  });
+
+  try { localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); } catch (e) {}
+}
+
+function restore() {
+  let raw = null;
+  try { raw = localStorage.getItem(DRAFT_KEY); } catch (e) { return; }
+  if (!raw) return;
+  let d;
+  try { d = JSON.parse(raw); } catch (e) { return; }
+
+  if (d.respondent) document.getElementById("rname").value = d.respondent;
+  if (d.organization) document.getElementById("rorg").value = d.organization;
+  if (d.email) document.getElementById("remail").value = d.email;
+
+  Object.keys(d.answers || {}).forEach(function (k) {
+    d.answers[k].forEach(function (v) {
+      document.querySelectorAll('input[data-item="' + k + '"]').forEach(function (cb) {
+        if (cb.value === v) cb.checked = true;
+      });
+    });
+  });
+  Object.keys(d.comments || {}).forEach(function (k) {
+    const i = document.querySelector('input[data-comment="' + k + '"]');
+    if (i) i.value = d.comments[k];
+  });
+  Object.keys(d.openAnswers || {}).forEach(function (k) {
+    const t = document.querySelector('textarea[data-open="' + k + '"]');
+    if (t) t.value = d.openAnswers[k];
+  });
+  document.querySelectorAll("textarea[data-section]").forEach(function (t) {
+    const v = (d.sectionComments || {})[t.getAttribute("data-section")];
+    if (v) t.value = v;
+  });
+
+  const status = document.getElementById("status");
+  if (Object.keys(d.answers || {}).length || Object.keys(d.openAnswers || {}).length) {
+    status.textContent = "Draft restored";
+    status.className = "status ok";
+  }
+}
+
+function clearAll() {
+  if (!confirm("Clear every answer on this page?")) return;
+  document.querySelectorAll("input[type=checkbox][data-item]").forEach(function (cb) { cb.checked = false; });
+  document.querySelectorAll("input[data-comment]").forEach(function (i) { i.value = ""; });
+  document.querySelectorAll("textarea[data-open]").forEach(function (t) { t.value = ""; });
+  document.querySelectorAll("textarea[data-section]").forEach(function (t) { t.value = ""; });
+  try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+  document.getElementById("status").textContent = "";
+  refresh();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+async function submit() {
+  const d = collect();
+  const statusEl = document.getElementById("status");
+
+  if (!d.respondent || !d.organization) {
+    statusEl.textContent = "Name and organization are required.";
+    statusEl.className = "status err";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+
+  const payload = {
+    respondentId: d.respondentId,
+    respondent: d.respondent,
+    organization: d.organization,
+    email: d.email,
+    items: [],
+    sectionComments: []
+  };
+
+  SECTIONS.forEach(function (sec) {
+    sec.items.forEach(function (it) {
+      if (it.type === 'open') {
+        payload.items.push({
+          n: it.n,
+          type: 'open',
+          section: sec.title,
+          proposal: it.text,
+          buckets: [],
+          comment: d.openAnswers[String(it.n)] || ""
+        });
+      } else {
+        const picked = d.answers[String(it.n)] || [];
+        payload.items.push({
+          n: it.n,
+          type: 'bucket',
+          section: sec.title,
+          proposal: it.text,
+          buckets: picked,
+          comment: d.comments[String(it.n)] || ""
+        });
+      }
+    });
+    const sc = d.sectionComments[sec.title];
+    if (sc) payload.sectionComments.push({ section: sec.title, text: sc });
+  });
+
+  const btn = document.getElementById("btn-submit");
+  btn.disabled = true;
+  btn.textContent = "Submitting\u2026";
+  statusEl.textContent = "";
+  statusEl.className = "status";
+
+  try {
+    const res = await fetch(BACKEND, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    });
+    const out = await res.json();
+    if (out.status !== "ok") throw new Error(out.message || "Server rejected the submission");
+
+    btn.textContent = "Submit responses";
+    btn.disabled = false;
+    statusEl.textContent = "Response recorded \u00b7 " + (out.id || "");
+    statusEl.className = "status ok";
+    const banner = document.getElementById("success-banner");
+    banner.style.display = "block";
+    banner.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = "Submit responses";
+    statusEl.textContent = "Submission failed, your draft is still saved. " + err.message;
+    statusEl.className = "status err";
+  }
+}
+
+build();
+respondentId();
+restore();
+refresh();
+document.addEventListener("change", refresh);
+document.addEventListener("input", refresh);
+document.getElementById("btn-clear").addEventListener("click", clearAll);
+document.getElementById("btn-submit").addEventListener("click", submit);
+</script>
+</body>
+</html>
